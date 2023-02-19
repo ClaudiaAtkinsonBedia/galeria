@@ -1,0 +1,19 @@
+body {
+    font-family: arial, helvetica;
+    
+
+}
+#info {width:160px; border:thin solid silver; padding:.5em; position:fixed;}
+#info h1 {margin: 0;}
+
+a {
+    font-weight: 700;
+}
+
+h4 {
+    font-size: 1.2em;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    color:cadetblue
+}
