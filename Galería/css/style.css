@@ -39,14 +39,14 @@ input {
   border: 1px solid #dcdcdc;
   margin-right: 1em;
 }
+.myImg {
+  background-size: cover;
+  background-position: center;
+}
 div {
   margin-top: 2.8em;
   padding: 1.5em 0 .5em;
   border-top: 1px dotted #637a91;
-}
-p.description,
-p:nth-of-type(2) {
-  font-weight: bold;
 }
 /* Buttons */
 button {

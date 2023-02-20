@@ -1,47 +1,27 @@
-window.onload = inicio;
+getImages();
 
-function inicio() {
-  cargarImagenes();
+function getImages() 
+{
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "https://api.unsplash.com/photos/random?client_id=SW0vhpAaysZZpBP6MrDXLxn2wQm8LlQnRg18c0bHkOQ&count=3", true);
+  xhr.onload = function() 
+  {
+    if (xhr.readyState === 4 && xhr.status === 200)
+    {
+      var images = JSON.parse(xhr.responseText);
+      // Lógica para mostrar las imágenes en el carrusel
+      var image1 = document.getElementById('image1');
+      var image2 = document.getElementById('image2');
+      var image3 = document.getElementById('image3');
 
-  function cargarImagenes() {
-    var imageUrls = [];
-    for (let i = 0; i < 3; i++) {
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 2) {
-          xhr.responseType = "blob";
-        }
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          var reader = new FileReader();
-          reader.onload = function() {
-            imageUrls.push(reader.result);
-            if (imageUrls.length === 3) {
-              mostrarImagenes(imageUrls);
-            }
-          };
-          reader.readAsDataURL(xhr.response);
-        }
-      };
-      xhr.open("GET", "https://source.unsplash.com/random?" + i, true);
-      xhr.send();
+      image1.setAttribute('src', images[0].urls.regular);
+      image2.setAttribute('src', images[1].urls.regular);
+      image3.setAttribute('src', images[2].urls.regular);
+    } 
+    else 
+    {
+      console.log("Ha habido un error al cargar las imágenes. ¡Lo sentimos!"); // ¿Preferís un alert?
     }
-  }
-
-  function mostrarImagenes(imageUrls) {
-    var carouselInner = document.querySelector("#carousel-inner .carousel-inner");
-    for (let i = 0; i < imageUrls.length; i++) {
-      var carouselItem = document.createElement("div");
-      carouselItem.classList.add("carousel-item");
-      if (i === 0) {
-        carouselItem.classList.add("active");
-      }
-      var img = document.createElement("img");
-      img.src = imageUrls[i];
-      img.classList.add("d-block", "w-100");
-      carouselItem.appendChild(img);
-      carouselInner.appendChild(carouselItem);
-    }
-  }
-  // Add this line to add the "data-bs-ride" attribute to the carousel element
-  document.querySelector("#carousel-inner").setAttribute("data-bs-ride", "carousel");
+  };
+  xhr.send();
 }
